@@ -1,0 +1,386 @@
+/*================================js_in_30days===================
+1. typography
+
+=====================================================*/
+
+
+//@import url(http://fonts.googleapis.com/css?family=Lato:400,700);
+@import 'reset';
+@import url(https://fonts.googleapis.com/css?family=Orbitron);
+@import "../fontello/css/fontello.css";
+
+
+@mixin breakpoints ($break) {
+  @if $break == phone { 
+    @media (min-width: 30em) { @content; }
+  }
+  @if $break == tablet {
+        @media (min-width: 48em) { @content; }
+    }
+    @if $break == laptop {
+        @media (min-width: 60em) { @content; }
+    }
+    @if $break == desktop {
+        @media (min-width: 80em) { @content; }
+    }
+    @if $break == print {
+         @media print { @content; }
+    }
+    @else { 
+      @media (min-width: $break) { @content; }
+    }
+}
+
+@mixin fontello {
+  font-family: "fontello";
+  font-size: 2rem;
+  color: $main-font-color;
+  margin-right: 10px;
+}
+
+$main-font-color: #636363;
+$bg: #f1f1f1;//#275F6F;
+$bg-main: #fdfdfd;// #f1f1f1;//lighten($bg, 20%);//#8dbac7;
+/*===================TYPOGRAPHY=======================*/
+html {
+  font-size: 62.5%;
+  @media print {
+    font-family: TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif;
+    color:black;
+  }
+}
+
+body {
+  font-family: "Lato, sans-serif";
+  font-size: 1.4rem;
+  color: $main-font-color;
+}
+
+a {
+  color: rgb(0, 132, 137);
+  text-decoration: none;
+  font-size: 1.4rem;
+  &:hover {
+    color: red;
+  }
+}
+
+h1, h2 {
+  text-transform: uppercase;
+}
+
+h1 {
+  padding: 20px 0;
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2.2rem;
+  @media print {
+    font-size: 1.6rem;
+  }
+}
+
+h3 {
+  font-size: 2rem;
+  color: #71a6d6;
+  padding-bottom: 10px;
+}
+
+h4 {
+  font-size: 1.8rem;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+p {
+  margin-right: 30px;
+  padding: 10px 0 10px 10px;
+  font-size: 1.6rem;
+  border-left: 1px dotted #4f4a41;
+  text-align: justify; 
+}
+time {
+  font-weight: bold;
+}
+
+@media print {
+  /*linki*/
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+      /*js linki*/
+    a[href^="javascript:"]:after,
+    a[href^="#"]:after {
+        content: "";
+    } 
+}
+
+#content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-width: 1000px;
+  @media (min-width: 48em) { 
+    flex-direction: row;
+    margin: auto;
+  }
+  @media print {
+    flex-direction: row;
+  }
+}
+.section-header {   
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  text-align: center; 
+  font-weight: bold;  
+  &:after,
+  &:before {
+    content: "";
+    border: solid 1px rgba(99,99,99,0.2);
+    flex: 1;
+  }
+  &:before {
+    margin-right: 5%;
+  }
+  &:after {
+    margin-left: 5%;
+  }
+}
+/*============================aside======================================*/
+aside { 
+  padding: 25px 25px 0;
+  background-color: $bg;
+  border-right: solid 1px rgba(99,99,99,0.2);
+  @media (min-width: 48em) { 
+    width: 30%;
+  }
+  @media print {
+    width: 30%;  
+    margin: 0; 
+    padding-left: 0;
+  }
+}
+
+.aside__header {
+  margin: 20px 0 30px 0;
+  text-align: center;
+ .profile-photo {
+    width: 158px;
+    height: 158px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: block;
+    margin: auto;
+    border: solid 1px rgba(99,99,99,0.2);
+    padding: 8px;
+    @media print {
+      max-width:100%;
+    }
+  }
+  .header__subheader {
+    text-transform: uppercase;
+  }
+}
+
+.aside__section {
+  margin-bottom: 40px;
+  @media print {
+    margin-bottom: 15px;
+  }
+}
+
+
+.contact {
+  position: relative;
+  .phone {     
+    &:before  {
+      content:'\e800';
+      @include fontello;
+    }
+  }
+  .birth {     
+    &:before {
+      content:'\e802';
+      @include fontello;
+    }
+  }
+  .email {     
+    &:before {
+      content:'\e808';
+      @include fontello;
+    }
+  }  
+}
+
+.interests {
+  text-align: center;
+  li {
+    display: inline-block;
+  }
+  
+  .travel {     
+    &:before {
+      content:'\e805';
+      @include fontello;
+    }
+  } 
+  .game {     
+    &:before {
+      content:'\f11b';
+      @include fontello;
+    }
+  } 
+  .volleyball {     
+    &:before {
+      content:'\f1e3';
+      @include fontello;
+    }
+  } 
+  .tennis {     
+    &:before {
+      content:'\e839';
+      @include fontello;
+    }
+  } 
+  .biking {     
+    &:before {
+      content:'\f206';
+      @include fontello;
+    }
+  } 
+  .skiing {     
+    &:before {
+      content:'\e836';
+      @include fontello;
+    }
+  } 
+}
+.attachments {
+  .recomend {
+    &:before {
+      content:'\e800';
+      @include fontello;
+    }
+  }
+  .diplomas {
+    &:before {
+      content:'\e800';
+      @include fontello;
+    }
+  }
+}
+.magic-websites {
+  &:before {
+    content:'\e807';
+    @include fontello;
+  }
+}
+.github {
+  &:before {
+    content:'\e806';
+    @include fontello;
+  }
+}
+
+
+/*============================main======================================*/
+
+main {
+  position: relative;
+  padding: 30px 30px 100px;
+  background: $bg-main;
+  @media (min-width: 48em) { 
+    padding: 50px;
+    width: 68%;
+  }
+  @media print {
+    width: 70%; 
+    margin: 0; 
+    padding-right: 0;
+  }
+}
+.section-content {
+  padding-bottom: 20px;
+}
+.main-footer  {
+  position: absolute;
+  bottom: 10px;
+}
+/*============================print-button=================================*/
+
+.button-circle {
+  display: none;
+  width: 80px; 
+  height: 80px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  margin: 15px;
+  border-radius: 100%;
+  float: left;
+  @media (min-width: 48em) { 
+    display: block;
+  }
+}
+
+.button {
+  width: 74px; 
+  height: 74px;
+  border-radius: 100%;
+  background: #ffffff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.2em;
+  text-align: center;
+  color: $main-font-color;  
+  position: absolute;
+  top: 3px;
+  left: 3px;
+
+  &:before {
+      content:'\e803';
+      position: relative;
+      top: 18px;
+      font-size: 3.5rem;
+      font-family: "fontello";
+    }         
+}
+
+.gradient, .gradient:after {
+  
+  display: block;
+  content: "";
+  width: 400px; height: 80px;
+  background: #bd328f;
+  background: -moz-linear-gradient(-45deg,  #bd328f 0%, #bd328f 18%, #2976ab 42%, #292f75 62%, #bd328f 82%, #bd328f 100%);
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#bd328f), color-stop(18%,#bd328f), color-stop(42%,#2976ab), color-stop(62%,#292f75), color-stop(82%,#bd328f), color-stop(100%,#bd328f));
+  background: -webkit-linear-gradient(-45deg,  #bd328f 0%,#bd328f 18%,#2976ab 42%,#292f75 62%,#bd328f 82%,#bd328f 100%);
+  background: -o-linear-gradient(-45deg,  #bd328f 0%,#bd328f 18%,#2976ab 42%,#292f75 62%,#bd328f 82%,#bd328f 100%);
+  background: -ms-linear-gradient(-45deg,  #bd328f 0%,#bd328f 18%,#2976ab 42%,#292f75 62%,#bd328f 82%,#bd328f 100%);
+  background: linear-gradient(135deg,  #bd328f 0%,#bd328f 18%,#2976ab 42%,#292f75 62%,#bd328f 82%,#bd328f 100%);
+}
+
+.gradient {
+  animation: 8s anim linear infinite;
+}
+
+.gradient:after {
+  transform: translateX(400px);
+
+}
+
+@keyframes anim {
+  0% {transform: translateX(0px) ;}
+  100% {transform: translateX(-400px) ;}
+}
+
+/*============================awards=================================*/
+
+.awards-list {
+  li {
+    display: inline-block;
+  }
+}
