@@ -27,18 +27,29 @@
       </div>
 
       <div id="content">
-      <ul class="diplomas-list">
-        <li><img src="img/diplomas/PROGRAMMING DIPLOMA EN.jpg" alt="award 2015"></li>
-        <li><img src="img/diplomas/University_of_Technology_pl.jpg" alt="5s"></li>
-        <li><img src="img/diplomas/5s.jpg" alt="5s"></li>
-        <li><img src="img/diplomas/kanban.jpg" alt="5s"></li>
-        <li><img src="img/diplomas/the_internal_auditor.jpg" alt="5s"></li>
-        
-
-      </ul>
+        <ul class="diplomas-list">
+          <li><img src="img/diplomas/PROGRAMMING DIPLOMA EN.jpg" class="myImg" alt="Programming diploma"></li>
+          <li><img src="img/diplomas/University_of_Technology_pl.jpg" class="myImg" alt="University od Technology diploma"></li>
+          <li><img src="img/diplomas/5s.jpg" class="myImg" alt="5s diploma"></li>
+          <li><img src="img/diplomas/kanban.jpg" class="myImg" class="myImg" alt="Kanban diploma"></li>
+          <li><img src="img/diplomas/the_internal_auditor.jpg" class="myImg" alt="The internal auditor diploma"></li>
+        </ul>
       </div>
 
-    </div>
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+
+
+        <!-- Modal Content (The Image) -->
+        <img class="modal-content" id="img01">
+
+        <!-- Modal Caption (Image Text) -->
+        <div id="caption"></div>
+      </div>
+        
+
+
+
 
     <!-- =======================JavaScript============================== -->
     <script>
@@ -49,6 +60,26 @@
           window.print();
         });   
       })();
+
+      // Get the modal
+      var modal = document.getElementById('myModal');
+      var modalImg = document.getElementById("img01");
+      var captionText = document.getElementById("caption");
+      var img = document.querySelectorAll('.myImg');
+
+      img.forEach( img => img.addEventListener('click', function(){
+          modal.style.display = "block";
+          var newSrc = this.src;
+          modalImg.setAttribute('src', newSrc);
+          captionText.innerHTML = this.alt;
+      })
+      );
+
+      // When the user clicks on modal, close the modal   
+      modal.onclick = function() {
+        modal.style.display = "none";
+      };
+
 
     </script>
   </body>
