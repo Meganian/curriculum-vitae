@@ -36,14 +36,8 @@
         </ul>
       </div>
 
-      <!-- The Modal -->
       <div id="myModal" class="modal">
-
-
-        <!-- Modal Content (The Image) -->
         <img class="modal-content" id="img01">
-
-        <!-- Modal Caption (Image Text) -->
         <div id="caption"></div>
       </div>
         
@@ -61,7 +55,6 @@
         });   
       })();
 
-      // Get the modal
       var modal = document.getElementById('myModal');
       var modalImg = document.getElementById("img01");
       var captionText = document.getElementById("caption");
@@ -72,10 +65,9 @@
           var newSrc = this.src;
           modalImg.setAttribute('src', newSrc);
           captionText.innerHTML = this.alt;
-      })
+        })
       );
-
-      // When the user clicks on modal, close the modal   
+ 
       modal.onclick = function() {
         modal.style.display = "none";
       };
