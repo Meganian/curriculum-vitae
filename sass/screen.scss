@@ -12,7 +12,11 @@
 @import "compass/css3/animation";
 @import "compass/css3/transform";
 @import "compass/css3/border-radius";
+@import "compass/css3/flexbox";
 
+@import "compass/css3/images";
+
+@import url(https://fonts.googleapis.com/css?family=Fira+Sans:300,400,500,700);
 @mixin breakpoints ($break) {
   @if $break == phone { 
     @media (min-width: 30em) { @content; }
@@ -42,6 +46,7 @@
 }
 
 $main-font-color: #636363;
+$second-font-color: #63B8FF;//#71a6d6;
 $bg: #f1f1f1;//#275F6F;
 $bg-main: #fdfdfd;// #f1f1f1;//lighten($bg, 20%);//#8dbac7;
 
@@ -169,7 +174,7 @@ h2 {
 
 h3 {
   font-size: 2rem;
-  color: #71a6d6;
+  color: $second-font-color;
   padding-bottom: 10px;
 }
 
@@ -203,21 +208,21 @@ time {
 }
 
 #content {
-  display: flex;
-  flex-direction: column;
+  @include display-flex;
+  @include flex-direction(column);
   height: 100%;
   max-width: 1000px;
   @media (min-width: 48em) { 
-    flex-direction: row;
+    @include flex-direction(row);
     margin: auto;
   }
   @media print {
-    flex-direction: row;
+    @include flex-direction(row);
   }
 }
 .section-header {   
-  display: flex;
-  align-items: center;
+  @include display-flex;
+  @include align-items(center);
   margin-bottom: 15px;
   text-align: center; 
   font-weight: bold;  
@@ -225,7 +230,7 @@ time {
   &:before {
     content: "";
     border: solid 1px rgba(99,99,99,0.2);
-    flex: 1;
+     @include flex(1);
   }
   &:before {
     margin-right: 5%;
@@ -386,6 +391,87 @@ main {
     padding-right: 0;
   }
 }
+
+$bg-main: #fdfdfd;// #f1f1f1;//lighten($bg, 20%);//#8dbac7;
+
+
+$textShadow: rgba(black, 0.35) 1px 1px 1px;
+
+.skills {
+  position: relative;
+  @media print {
+    margin: 20px;
+  }
+}
+.progress--circle {
+  position: relative;
+  display: inline-block;
+  margin: 1.5rem;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background-color: $bg;
+  @media print {
+    margin: 0 10px 0 0;
+    width: 100px;
+    height: 30px;
+  }
+  &:before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: white;
+    @media print {
+      display: none;
+    }
+  }
+  &:after {
+    content: '';
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%; 
+    //background-color: red;
+    @media print {
+      display: none;
+    }
+  }
+}
+
+$step: 5;
+$loops: round(100 / $step);
+$increment: 360 / $loops;
+$half: round($loops / 2);
+@for $i from 0 through $loops {
+  .progress--bar.progress--#{$i * $step}:after {
+    width: $i * $step * 1%;
+  }
+  .progress--circle.progress--#{$i * $step}:after {
+    @if $i < $half {
+      $nextDeg: 90deg + ($increment * $i);
+      @include background(linear-gradient(90deg, $bg 50%, transparent 50%, transparent), linear-gradient($nextDeg, $second-font-color 50%, $bg 50%, $bg));
+    }
+    @else {
+      $nextDeg: -90deg + ($increment * ($i - $half));
+      @include background(linear-gradient($nextDeg, $second-font-color 50%, transparent 50%, transparent), linear-gradient(270deg, $second-font-color 50%, $bg 50%, $bg));
+    }
+  }
+}
+.progress__number {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  line-height: 1;
+  margin-top: -0.75rem;
+  text-align: center;
+  font-size: 1.5rem;
+  color: main-font-color;
+
+}
 .section-content {
   padding-bottom: 20px;
 }
@@ -434,23 +520,17 @@ main {
   display: block;
   content: "";
   width: 400px; height: 80px;
+  @include background(linear-gradient(135deg,  #bd328f 0%,#bd328f 18%,#2976ab 42%,#292f75 62%,#bd328f 82%,#bd328f 100%));
   background: #bd328f;
-  background: -moz-linear-gradient(-45deg,  #bd328f 0%, #bd328f 18%, #2976ab 42%, #292f75 62%, #bd328f 82%, #bd328f 100%);
   background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#bd328f), color-stop(18%,#bd328f), color-stop(42%,#2976ab), color-stop(62%,#292f75), color-stop(82%,#bd328f), color-stop(100%,#bd328f));
-  background: -webkit-linear-gradient(-45deg,  #bd328f 0%,#bd328f 18%,#2976ab 42%,#292f75 62%,#bd328f 82%,#bd328f 100%);
-  background: -o-linear-gradient(-45deg,  #bd328f 0%,#bd328f 18%,#2976ab 42%,#292f75 62%,#bd328f 82%,#bd328f 100%);
-  background: -ms-linear-gradient(-45deg,  #bd328f 0%,#bd328f 18%,#2976ab 42%,#292f75 62%,#bd328f 82%,#bd328f 100%);
-  background: linear-gradient(135deg,  #bd328f 0%,#bd328f 18%,#2976ab 42%,#292f75 62%,#bd328f 82%,#bd328f 100%);
 }
 
 .gradient {
   @include animation(8s anim linear infinite);
-}
-
-.gradient:after {
+  &:after {
 	@include translateX(400px);
+  }
 }
-
 @keyframes anim {
   0% {@include translateX(0);}
   100% {@include translateX(-400px);}
